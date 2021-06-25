@@ -5,8 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ImageSpoid_Example"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" Closing="Window_Closing">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </Window.Resources>
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="406*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="150"/>
+            </Grid.ColumnDefinitions>
+            <WindowsFormsHost Name="host" Loaded="Host_Loaded"/>
+            <Grid Grid.Column="1">
+                <Button Content="Load Image" Padding="20,5" VerticalAlignment="Top" Margin="10,10,10,0" Click="Image_Button_Click"/>
+                <Button Content="Save Pixel Data" Padding="20,5" Margin="10,0,10,10" Height="80" VerticalAlignment="Bottom" Click="Button_Click"/>
+            </Grid>
+        </Grid>
+        <ProgressBar Grid.Row="1" Height="15" Maximum="{Binding MaxCount}" Value="{Binding Progress}" Visibility="{Binding IsRun, Converter={StaticResource BooleanToVisibilityConverter}}"/>
     </Grid>
 </Window>
